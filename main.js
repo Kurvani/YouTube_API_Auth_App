@@ -68,7 +68,15 @@ function handleSignoutClick() {
   gapi.auth2.getAuthInstance().signOut();
 }
 
-// Get channel from API
+// Get channel from API //The part before .then grabs the data and after the .then is the response
 function getChannel(channel) {
-  console.log(channel);
+  gapi.client.youtube.channels
+    .list({
+      part: "snippet,contentDetails,statistics",
+      forUsername: channel
+    })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(err => alert("No Channel By That Name"));
 }
